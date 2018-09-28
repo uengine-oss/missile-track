@@ -36,3 +36,11 @@ Transfer-Encoding: chunked
  kubectl expose deploy/missile --type=LoadBalancer --port=8080
  kubectl get svc -w
 ```
+
+## Rolling update to GKE
+```
+ mvn package -B
+ docker build -t gcr.io/my-project-1531888882785/missile:v2 .
+ docker push gcr.io/my-project-1531888882785/missile:v2
+ kubectl set image deploy/missile missile=gcr.io/my-project-1531888882785/missile:v2
+```
