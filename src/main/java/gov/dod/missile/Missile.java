@@ -4,7 +4,9 @@ package gov.dod.missile;
  * Created by uengine on 2018. 9. 28..
  */
 public class Missile {
+
     boolean outOfRange;
+    boolean burnedOut;
     double xLocation;
     double yLocation;
     double zLocation;
@@ -41,4 +43,14 @@ public class Missile {
     public void setOutOfRange(boolean outOfRange) {
         this.outOfRange = outOfRange;
     }
+
+    public boolean isBurnedOut() {
+        return burnedOut;
+    }
+
+    public void setBurnedOut(boolean burnedOut) {
+        this.burnedOut = burnedOut;
+    }
+
+
 }
