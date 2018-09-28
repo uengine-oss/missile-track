@@ -19,6 +19,9 @@ public class MissileApplication {
 
 	@RequestMapping(path="/missile", method = RequestMethod.GET)
 	public Missile getMissile(){
+
+		System.out.println("now the missile info has been requested");
+
 		return missile;
 	}
 
