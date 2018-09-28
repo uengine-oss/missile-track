@@ -31,4 +31,12 @@ public class MissileApplication {
 
 		return missile;
 	}
+
+	@RequestMapping(path="/estimate", method = RequestMethod.POST)
+	public Missile estimate(){
+
+		return missile;
+	}
+
+
 }
