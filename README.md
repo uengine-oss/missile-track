@@ -39,6 +39,7 @@ Transfer-Encoding: chunked
 
 ## Rolling update to GKE
 ```
+ git pull
  mvn package -B
  docker build -t gcr.io/my-project-1531888882785/missile:v2 .
  docker push gcr.io/my-project-1531888882785/missile:v2
