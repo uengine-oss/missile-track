@@ -32,8 +32,17 @@ public class MissileApplication {
 		return missile;
 	}
 
+	@RequestMapping(path="/missile", method = RequestMethod.DELETE)
+	public Missile deleteMissile(){
+		missile = new Missile();
+
+		return missile;
+	}
+
 	@RequestMapping(path="/estimate", method = RequestMethod.POST)
 	public Missile estimate(){
+
+		System.out.println("estimated");
 
 		return missile;
 	}
