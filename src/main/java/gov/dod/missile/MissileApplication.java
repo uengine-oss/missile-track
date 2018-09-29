@@ -39,7 +39,7 @@ public class MissileApplication {
 		return missile;
 	}
 
-	@RequestMapping(path="/estimate", method = RequestMethod.POST)
+	@RequestMapping(path="/estimate", method = {RequestMethod.POST, RequestMethod.GET})
 	public Missile estimate(){
 
 		System.out.println("estimated");
