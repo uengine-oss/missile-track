@@ -6,4 +6,14 @@ package gov.dod.radar;
  */
 public class Battery{
 
+    public String getBatteryId() {
+        return batteryId;
+    }
+
+    public void setBatteryId(String batteryId) {
+        this.batteryId = batteryId;
+    }
+
+    String batteryId;
+
 }
