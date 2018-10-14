@@ -44,7 +44,7 @@ $ http POST localhost:8080/estimate launchPointId=L1 impactPointId=T1
 ```
  git pull
  mvn package -B
- docker build -t gcr.io/my-project-1531888882785/missile:v2 .
- docker push gcr.io/my-project-1531888882785/missile:v2
- kubectl set image deploy/missile missile=gcr.io/my-project-1531888882785/missile:v2
+ docker build -t gcr.io/uengine-istio-test/missile-track:v2 .
+ docker push gcr.io/uengine-istio-test/missile-track:v2
+ kubectl set image deploy/missile missile=gcr.io/uengine-istio-test/missile-track:v2
 ```

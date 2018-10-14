@@ -22,16 +22,20 @@ public class MissileApplication {
 	static EnemyMissileType scud_c = new EnemyMissileType();
 
 	public static void main(String[] args) {
-		SpringApplication.run(MissileApplication.class, args);
+	//	SpringApplication.run(MissileApplication.class, args);
 
-//		Missile missile = new Missile();
-//		missile.setImpactPointId("T1");
-//		missile.setLaunchPointId("L8");
-//
-//		MissileApplication missileApplication = new MissileApplication();
-//		missileApplication.setMissile(missile);
-//
-//		System.out.print(missileApplication.engageFeasible(0));
+		Missile missile = new Missile();
+		missile.setImpactPointId("T1");
+		missile.setLaunchPointId("L8");
+
+		MissileApplication missileApplication = new MissileApplication();
+		missileApplication.setMissile(missile);
+
+		System.out.println(missileApplication.engageFeasible());
+		System.out.println(missileApplication.bda());
+		System.out.println(missileApplication.bda());
+		System.out.println(missileApplication.bda());
+		System.out.println(missileApplication.bda());
 
 	}
 
@@ -40,7 +44,7 @@ public class MissileApplication {
 	@RequestMapping(path="/missile", method = RequestMethod.GET)
 	public Missile getMissile(){
 
-		System.out.println("now the missile info has been requested");
+		///System.out.println("now the missile info has been requested");
 
 		return missile;
 	}
@@ -86,7 +90,20 @@ public class MissileApplication {
 
 
 	@RequestMapping(path="/engageFeasible", method = {RequestMethod.GET})
-	public boolean engageFeasible(){
+	public boolean engageFeasible() {
+		return checkPossibility(0);
+	}
+
+	@RequestMapping(path="/dba", method = {RequestMethod.GET})
+	public boolean bda(){
+		int fcq = 30;//15 + (int)(5 * Math.random());
+
+
+
+		return checkPossibility(fcq);
+	}
+
+	public boolean checkPossibility(int fcq){
 
 		missile.init();
 
@@ -96,8 +113,8 @@ public class MissileApplication {
 		double targetY = R * ((Math.abs(missile.getLaunchPoint().getLatitude() - missile.getImpactPoint().getLatitude()) * Math.PI / 180));
 
 		///////////// implicitly set
-		targetX = 80;
-		targetY = 250;
+		targetX = 55;
+		targetY = 180;
 
 		double s = Math.sqrt(targetX * targetX + targetY * targetY);
 		double theta = Math.atan2(targetX, targetY);
@@ -116,10 +133,11 @@ public class MissileApplication {
 		List<Double> myList = new ArrayList<Double>();
 		List<Double> xList = new ArrayList<Double>();
 		List<Double> yList = new ArrayList<Double>();
-		for(double x = 0; x < s; x+=0.5){
+		for(double x = 0; x < s; x+=1.5){
 			double y = a * x*x + b * x + scud_c.getEpsilon();
 
 			double d = ( b * -1 * Math.sqrt(b *b + 4*a*y ) / (2*a));
+			//double d = x;
 			double mx = d * Math.sin(theta);
 			double my = d * Math.cos(theta);
 
@@ -152,10 +170,16 @@ public class MissileApplication {
 
 		int token = 0, detect = 0;
 
-		for(int i=burnoutPosition; i < xList.size(); i++){
+		List<Double> decisionB1List = new ArrayList<Double>();
+		List<Double> decisionB2List = new ArrayList<Double>();
+		List<Double> decisionCList = new ArrayList<Double>();
+		List<Integer> tokenList = new ArrayList<Integer>();
+
+		for(int i=burnoutPosition + fcq; i < xList.size(); i++){
 
 			double decisionA = targetY - myList.get(i);
-			if(decisionA > 0) token = 1;
+			if(decisionA > 0)
+				token = 1;
 
 			double deltaX = decisionA * Math.tan(missile.getImpactPoint().getAngle() /2);
 			double decisionB1 = targetX + deltaX;
@@ -163,14 +187,24 @@ public class MissileApplication {
 
 			double compareB = mxList.get(i);
 
-			if(compareB < decisionB1) token ++;
+			if(compareB < decisionB1)
+				token ++;
 
-			if(compareB > decisionB2) token ++;
+			if(compareB > decisionB2)
+				token ++;
 
-			double decisionC = Math.sqrt((targetX - mxList.get(i)) * (targetX - mxList.get(i)) + (targetY - myList.get(i)) * (targetY - myList.get(i)));
+			double decisionC = Math.sqrt((targetX - mxList.get(i)) * (targetX - mxList.get(i)) + (targetY - myList.get(i)) * (targetY - myList.get(i)) + (0 - yList.get(i)) * (0 - yList.get(i)));
 
-			if(decisionC > getMissile().getImpactPoint().getdMin()) token ++;
-			if(decisionC < getMissile().getImpactPoint().getdMax()) token ++;
+			decisionB1List.add(decisionB1);
+			decisionB2List.add(decisionB2);
+			decisionCList.add(decisionC);
+
+			if(decisionC > getMissile().getImpactPoint().getdMin())
+				token ++;
+			if(decisionC < getMissile().getImpactPoint().getdMax())
+				token ++;
+
+			tokenList.add(token);
 
 			if(token > 4)
 				return true;
