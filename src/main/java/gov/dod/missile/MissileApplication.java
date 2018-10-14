@@ -22,16 +22,16 @@ public class MissileApplication {
 	static EnemyMissileType scud_c = new EnemyMissileType();
 
 	public static void main(String[] args) {
-		//SpringApplication.run(MissileApplication.class, args);
+		SpringApplication.run(MissileApplication.class, args);
 
-		Missile missile = new Missile();
-		missile.setImpactPointId("T1");
-		missile.setLaunchPointId("L8");
-
-		MissileApplication missileApplication = new MissileApplication();
-		missileApplication.setMissile(missile);
-
-		System.out.print(missileApplication.engageFeasible(0));
+//		Missile missile = new Missile();
+//		missile.setImpactPointId("T1");
+//		missile.setLaunchPointId("L8");
+//
+//		MissileApplication missileApplication = new MissileApplication();
+//		missileApplication.setMissile(missile);
+//
+//		System.out.print(missileApplication.engageFeasible(0));
 
 	}
 
@@ -86,7 +86,7 @@ public class MissileApplication {
 
 
 	@RequestMapping(path="/engagetFeasible", method = {RequestMethod.GET})
-	public boolean engageFeasible(int fcq){
+	public boolean engageFeasible(){
 
 		missile.init();
 

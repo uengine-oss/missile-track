@@ -25,6 +25,9 @@ Transfer-Encoding: chunked
     "yLocation": 0.0,
     "zLocation": 0.0
 }
+
+$ http POST localhost:8080/estimate launchPointId=L1 impactPointId=T1
+
 ```
 
 ## Deploying to GKE
