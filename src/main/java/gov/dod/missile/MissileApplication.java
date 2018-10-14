@@ -85,7 +85,7 @@ public class MissileApplication {
 	}
 
 
-	@RequestMapping(path="/engagetFeasible", method = {RequestMethod.GET})
+	@RequestMapping(path="/engageFeasible", method = {RequestMethod.GET})
 	public boolean engageFeasible(){
 
 		missile.init();
